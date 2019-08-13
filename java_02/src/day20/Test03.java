@@ -1,0 +1,44 @@
+package day20;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class Test03 {
+	public static void main(String[] args) {
+		Properties p = new Properties();
+		
+		try {
+			p.load(new FileInputStream("c:\\lib\\dbinfo.txt"));
+			// 절대주소가 아니면 cmd창에서 실행되지 않음.
+			String url = p.getProperty("url");
+			System.out.println(url);
+			
+			String driver = p.getProperty("driver");
+			System.out.println(driver);
+			//System.out.println(p.getProperty("driver"));
+			
+			String user = p.getProperty("user");
+			System.out.println(user); 
+			
+			String pw = p.getProperty("pw");
+			System.out.println(pw);
+			
+			p.setProperty("jdkver", "1.8");
+			p.setProperty("oraclever", "11g");
+			p.setProperty("tomcatver","9");
+			//xml로 저장
+			p.storeToXML(new FileOutputStream("data.xml"), "DB Info");
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("dbinfo.txt 파일을 준비해주세요.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(" main end ");
+	}
+	
+}
